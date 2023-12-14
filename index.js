@@ -271,14 +271,16 @@ async function evaluateData(page, priceNum){
     const elements = await page.$x(xpath);
     
     const priceElement = elements[0]; 
-    
-    const priceText = await page.evaluate(el => el.textContent, priceElement); 
+    // Add in template literals here 
+    const priceText = await page.evaluate(`el => el.textContent, priceElement`); 
     const formattedText = priceText.replace(/[, $]/g, ''); 
 
     const priceNum = Number(formattedText); 
     console.log("this is the price number"); 
     console.log(priceNum); 
     console.log("just about to run"); 
+    
+    // Add in a random delay here 
     evaluateData(page, priceNum); 
 
 }
@@ -295,7 +297,8 @@ async function evaluateData(page, priceNum){
 async function currentURL(page){
     
     // Get the current url here 
-    let current_url = await page.evaluate(() => document.location.href);
+    let current_url = await page.evaluate(`() => document.location.href`);
+
 
     // const current_url = await page.url();
     // Call the Find url function here 
@@ -328,6 +331,9 @@ async function currentURL(page){
         console.log(visited_url); 
         
         // Call the scrape Data function here 
+        
+        
+        // Add in a random delay here 
         scrapeData(page); 
         
         
@@ -355,7 +361,7 @@ async function currentURL(page){
     console.log("is this functioning");
     console.log("this is the current url"); 
    await console.log(current_url); 
-    console.log("this is the page object"); 
+    console.log("this is the page object");  
     console.log(page); 
     
     
@@ -363,18 +369,19 @@ async function currentURL(page){
     await updateCounter(); 
     
     console.log('calling scrape data function'); 
+    
+    
+    
+    
 
 }
-
-
-
-
 
 // Add in the get product function here 
 async function getProduct(page){
 
     console.log("will this WORKKKK");
     let index = 3;
+    
     
     // Call the read Counter variable function here 
     const counter = await readCounter(); 
@@ -396,6 +403,8 @@ async function getProduct(page){
     // Make sure that you are 
     if(elements.length >= 1){
         let element = elements[counter]; 
+        
+        // Add in a random delay here 
         await element.click(); 
 
     }
@@ -403,7 +412,9 @@ async function getProduct(page){
     else{
         console.log("nothing has been assigned")
     }
-
+    
+    
+// Add in a random delay here 
    await currentURL(page); 
 }
 
@@ -413,10 +424,17 @@ async function getProduct(page){
 async function startProgram(){
     
     // Add in the code here to configure the browser 
-    const browser = await puppeteer.launch({headless: false});  // Create a new page
+    
+    // Add in the proper configuration here 
+    const browser = await puppeteer.launch({headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"]});  
+    
+    // Create a new page
     const page = await browser.newPage(); 
     await page.goto(url);
+    
     // Call the secondary driver function here 
+    
+    // Add in a random delay here 
     await getProduct(page); 
     
     // await currentURL(page); 

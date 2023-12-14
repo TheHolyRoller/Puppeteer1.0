@@ -14,8 +14,8 @@ const app = express();
 app.get('/', (req, res) => {
   // Send back a simple text response
 
+
   startProgram(); 
-  
   
   res.send('Hello, world!');
 });
